@@ -1,0 +1,4 @@
+name = "bloom-food-search"
+main = "search-worker.js"
+compatibility_date = "2026-10-14"
+workers_dev = true
