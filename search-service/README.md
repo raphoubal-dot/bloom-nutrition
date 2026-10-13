@@ -1,24 +1,28 @@
-# Bloom — service de recherche optionnel
+# Bloom 🌸 — relais de recherche Open Food Facts
 
-Le site Bloom reste hébergé sur GitHub Pages. Ce petit **Cloudflare Worker** interroge Open Food Facts côté serveur afin d'éviter les problèmes CORS de Safari. Il accepte uniquement les recherches de produits. Il ne reçoit jamais le profil, le journal, le poids ou les macros de l'utilisateur.
+**Pourquoi ?** Safari peut bloquer les requêtes directes vers Open Food Facts (CORS). Le site Bloom reste hébergé sur GitHub Pages ; ce Cloudflare Worker fournit une passerelle HTTPS pour la recherche de produits.
 
-## Mise en ligne
+Le relais ne reçoit que les **mots recherchés**, jamais le profil, le poids, le journal ni les recettes. Aucune clé API personnelle ne doit être placée dans le code.
 
-1. Crée un compte sur [Cloudflare](https://dash.cloudflare.com/sign-up) ou connecte-toi.
-2. Ouvre **Workers & Pages → Create → Worker** et crée un Worker nommé `bloom-food-search`.
-3. Ouvre **Edit code**, remplace le code de démonstration par celui de [search-worker.js](./search-worker.js).
-4. Clique sur **Deploy**.
-5. Teste `https://TON-WORKER.workers.dev/health` : la réponse doit contenir `"status":"ok"`.
-6. Copie l'URL `https://TON-WORKER.workers.dev` puis donne-la dans notre conversation ChatGPT pour que nous puissions la configurer dans Bloom.
+## Installation depuis GitHub (sans Mac)
 
-Cette connexion est facultative : les fonctions locales de Bloom restent accessibles sans elle.
+1. Connecte-toi à [Cloudflare](https://dash.cloudflare.com/) et ouvre **Workers & Pages**.
+2. Choisis **Create application** puis **Import a repository**.
+3. Connecte ton compte GitHub et sélectionne **`raphoubal-dot/bloom-nutrition`**.
+4. Dans la configuration du Worker, choisis comme **Root directory : `search-service`**, et la branche **`main`**.
+5. Vérifie la commande de déploiement **`npx wrangler deploy`**. La configuration [`wrangler.toml`](./wrangler.toml) définit le fichier JavaScript à déployer.
+6. Sélectionne **Save and Deploy**. Après publication, Cloudflare affichera une adresse HTTPS terminant par `workers.dev`.
+7. Teste cette adresse avec `/health` ajouté à la fin : le texte doit contenir `"status":"ok"`.
+8. Dans Bloom, ouvre **Réglages → Recherche Open Food Facts**, colle l'adresse du Worker (sans `/health`) et appuie sur **Enregistrer l'adresse → Tester la connexion**.
 
-## Fonctionnement
+Si Cloudflare demande un site web « Pages » plutôt qu'un Worker, reviens en arrière et sélectionne la création d'un **Worker**.
 
+## Routes
+
+- `GET /health` : diagnostic.
 - `GET /search?q=skyr&mode=suggest` : suggestions, Search-a-licious uniquement.
-- `GET /search?q=skyr&mode=search` : recherche explicite ; la recherche historique est utilisée uniquement en secours.
-- Mise en cache des recherches 15 minutes sur Cloudflare, pour limiter les requêtes à Open Food Facts.
-- Origine autorisée : `https://raphoubal-dot.github.io`.
-- Aucune clé API, aucun compte utilisateur, aucune donnée personnelle envoyée à Open Food Facts hormis le nom du produit recherché.
+- `GET /search?q=skyr&mode=search` : recherche explicite, avec service historique en secours.
 
-Open Food Facts impose des limites de requêtes et peut être indisponible. Ne considérez pas les informations nutritionnelles collaboratives comme vérifiées sans contrôle de l'étiquette.
+La mise en cache côté Cloudflare réduit les requêtes répétées. Les API d'Open Food Facts ont des limites et peuvent être temporairement indisponibles. Le relais améliore les problèmes de navigateur, mais ne garantit pas la disponibilité d'Open Food Facts.
+
+Ce dossier ne remplace pas l'application principale dans `index.html`. Les données privées restent uniquement dans le stockage local Safari.
