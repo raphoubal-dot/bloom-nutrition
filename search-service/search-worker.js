@@ -19,25 +19,33 @@ function productFrom(hit){
   for(const field of allowed)if(n[field]!==undefined&&n[field]!==null&&Number.isFinite(Number(n[field])))nutriments[field]=Number(n[field]);
   return {code,product_name:name.slice(0,200),brands:String(p.brands||'').slice(0,100),nutriments};
 }
-async function requestJSON(url){
- const resp=await fetch(url,{signal:AbortSignal.timeout(9000),headers:{'Accept':'application/json','User-Agent':UA}});
+async function requestJSON(url,{method='GET',body=null,timeout=3500}={}){
+ const options={method,signal:AbortSignal.timeout(timeout),headers:{'Accept':'application/json','User-Agent':UA}};
+ if(body!==null){options.headers['Content-Type']='application/json';options.body=JSON.stringify(body)}
+ const resp=await fetch(url,options);
  if(resp.status===429)throw Error('RATE_LIMIT');
  if(!resp.ok)throw Error('OFF_'+resp.status);
  return await resp.json();
 }
 async function search(q,mode){
- const quick=new URL('https://search.openfoodfacts.org/search');
- for(const [k,v] of Object.entries({q,page_size:'20',fields:FIELDS}))quick.searchParams.set(k,v);
- try{
-   const data=await requestJSON(quick.toString());
+ const opts={q,page_size:20,langs:['fr','en'],fields:FIELDS.split(',')};
+ let searchError=null;
+ // Current Search-a-licious production endpoint; then alternate API domain.
+ for(const host of ['https://search.openfoodfacts.net','https://search.openfoodfacts.org']){
+  try{
+   const data=await requestJSON(host+'/search',{method:'POST',body:opts,timeout:3500});
+   if(Array.isArray(data?.errors)&&data.errors.length)throw Error('OFF_SEARCH');
    const hits=Array.isArray(data?.hits)?data.hits:Array.isArray(data?.results)?data.results:[];
    const products=hits.map(productFrom).filter(Boolean);
-   if(products.length||mode==='suggest')return {products,source:'search-a-licious'};
- }catch(e){if(e.message==='RATE_LIMIT'||mode==='suggest')throw e;}
- // One legacy request only for explicitly submitted searches, not per keystroke.
+   if(products.length || Array.isArray(data?.hits) || Array.isArray(data?.results))
+    return {products,source:'search-a-licious'};
+  }catch(e){searchError=e}
+ }
+ // Never call rate-limited legacy keyword search on every typed character.
+ if(mode==='suggest')throw searchError||Error('OFF_SEARCH');
  const legacy=new URL('https://world.openfoodfacts.org/cgi/search.pl');
  for(const [k,v] of Object.entries({search_terms:q,search_simple:'1',action:'process',json:'1',page_size:'20',fields:FIELDS}))legacy.searchParams.set(k,v);
- const data=await requestJSON(legacy.toString());
+ const data=await requestJSON(legacy.toString(),{timeout:4500});
  return {products:(Array.isArray(data?.products)?data.products:[]).map(productFrom).filter(Boolean),source:'legacy'};
 }
 export default {
