@@ -1,0 +1,115 @@
+/* Bloom 1.3.1 — direction éditoriale : Lora + Poppins, structure avant ornement. */
+:root{
+ --cream:#fbf8f3;
+ --paper:#fffdfa;
+ --ink:#30352f;
+ --muted:#777b73;
+ --sage:#e4ebdf;
+ --sage2:#b6c6b4;
+ --coral:#e5afa4;
+ --lilac:#e7e1ed;
+ --line:#eae7df;
+ --shadow:0 3px 16px rgba(63,66,52,.035);
+ font-family:'Poppins',-apple-system,BlinkMacSystemFont,sans-serif
+}
+body{background:#ebeee9}
+.app{background:#fbf8f3}
+.page.with-tabs{padding:calc(18px + env(safe-area-inset-top)) 20px 28px}
+h1,h2,h3,.serif,.brand{font-family:'Lora',Georgia,serif!important;letter-spacing:-.038em;color:#2e382f}
+h1{font-weight:600}h2{font-weight:600}
+button,input,select,textarea{font-family:'Poppins',-apple-system,BlinkMacSystemFont,sans-serif}
+.card,.meal,.statbox{box-shadow:0 3px 13px rgba(48,59,45,.035);border-color:#ebe6de}
+.tabs{background:#fffefbF2;border-top:1px solid #ebeae3;box-shadow:0 -7px 25px #5e6d5610;border-radius:20px 20px 0 0;padding:9px 7px calc(9px + env(safe-area-inset-bottom))}
+.tab{border-radius:13px;min-height:52px}
+.tab.active{background:#e8ede5;color:#496b55}
+.tab.add{background:#6e8774;box-shadow:0 4px 12px #57765a25}
+.v131-home{max-width:100%;min-width:0}
+.v131-intro{height:198px;position:relative;overflow:hidden}
+.v131-topline{display:flex;align-items:flex-start;justify-content:space-between;position:relative;z-index:3}
+.v131-logo{font:500 2.48rem/1.03 'Lora',Georgia,serif;letter-spacing:-.08em;color:#344336}
+.v131-logo>span{color:#d8a2a0;font-size:.6em;vertical-align:top;margin-left:2px}
+.v131-signature{font-size:.54rem;letter-spacing:.20em;color:#918e82;font-weight:500;margin:7px 0 0 3px}
+.v131-settings{display:grid;place-items:center;width:39px;height:39px;border-radius:50%;border:1px solid #eae7de;background:#f5f3ed;color:#60725f;box-shadow:none;cursor:pointer}
+.v131-greeting{position:relative;z-index:2;margin-top:31px;max-width:66%}
+.v131-greeting h1{font:600 clamp(1.6rem,6.6vw,2.05rem)/1.17 'Lora',Georgia,serif;letter-spacing:-.06em;overflow-wrap:break-word}
+.v131-greeting p{font-size:.76rem;color:#72776c;margin-top:10px}
+.v131-bloomie{position:absolute;z-index:1;bottom:0;right:-5px;width:48%;height:159px;pointer-events:none}
+.v131-bloomie .bloomie{width:100%;height:100%;object-fit:contain;object-position:bottom center;max-width:none;display:block;filter:none;-webkit-mask-image:radial-gradient(ellipse 73% 70% at 50% 54%,#000 46%,#000e 65%,transparent 97%);mask-image:radial-gradient(ellipse 73% 70% at 50% 54%,#000 46%,#000e 65%,transparent 97%)}
+.v131-day{margin:-1px 0 17px}
+.v131-day .date-strip{background:transparent;border:0;box-shadow:none;border-radius:0;margin:0 0 2px;padding:1px 0;gap:8px}
+.v131-day .date-strip button{height:34px;min-width:34px;border-radius:11px;border:1px solid #e8e8df;background:#f0f2ec;color:#5a6b5a}
+.v131-day .date-strip input{font-size:.75rem;background:transparent;font-weight:500}
+.v131-day>.small{font-size:.64rem;color:#96938c;margin:0!important}
+.v131-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.v131-section-head h2{font:600 1.34rem/1.25 'Lora',serif;letter-spacing:-.04em;margin:0}
+.v131-text-action{display:inline-flex;align-items:center;justify-content:flex-end;gap:3px;border:0;background:transparent;color:#657967;font-size:.67rem;font-weight:600;white-space:nowrap;padding:5px 0;min-height:35px}
+.v131-energy{background:#fffdfa;border:1px solid #ebe7de;border-radius:24px;padding:18px 16px 21px;box-shadow:0 4px 19px #676e5910;margin-bottom:12px}
+.v131-energy-grid{display:grid;grid-template-columns:41% minmax(0,59%);align-items:center;gap:0}
+.v131-ring{width:100%;max-width:170px;aspect-ratio:1;position:relative}
+.v131-ring svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
+.v131-ring-bg{fill:none;stroke:#eceae4;stroke-width:11}
+.v131-ring-fg{fill:none;stroke:#809986;stroke-width:11;stroke-linecap:round}
+.v131-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.v131-ring-center strong{font:600 clamp(1.45rem,6.3vw,2.1rem)/1.28 'Lora',serif;letter-spacing:-.06em;color:#354338}
+.v131-ring-center span{font-size:.52rem;color:#93928a;text-align:center}
+.v131-energy-right{padding-left:13px;min-width:0}
+.v131-remaining{font-size:.82rem;font-weight:600;color:#4c6652;line-height:1.4}
+.v131-daily-goal{font-size:.62rem;color:#8a8d84;margin-top:3px}
+.v131-macros{margin-top:16px;display:grid;gap:11px}
+.v131-macro-line{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.v131-macro-line span{font-size:.63rem;color:#696e65}
+.v131-macro-line strong{font-size:.66rem;white-space:nowrap;color:#354037;font-weight:600}
+.v131-macro-line small{font-size:.56rem;color:#9a9c93;font-weight:400}
+.v131-meter{height:5px;border-radius:20px;background:#eeeae5;overflow:hidden}
+.v131-meter i{display:block;height:100%;border-radius:20px;background:#809986;max-width:100%;min-width:0}
+.v131-macro .v131-meter{margin-top:6px}
+.v131-protein .v131-meter i{background:#ca9f93}
+.v131-carbs .v131-meter i{background:#a5a0bb}
+.v131-fat .v131-meter i{background:#93a78f}
+.v131-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 25px}
+.v131-metric{min-width:0;text-align:left;border:1px solid #e9e7df;background:#f4f6f1;border-radius:18px;padding:13px 13px 14px;box-shadow:none;display:flex;flex-direction:column;min-height:137px;color:#354237}
+.v131-metric.v131-water{background:#f5f2f8}
+.v131-metric-top{display:flex;align-items:center;gap:7px;font-size:.72rem;font-weight:600}
+.v131-metric-icon{color:#627e68;display:grid;place-items:center;width:25px;height:25px}
+.v131-water .v131-metric-icon{color:#8b9fc3}
+.v131-metric-action{margin-left:auto;display:grid;place-items:center;color:#9aa99c}
+.v131-metric strong{display:block;margin-top:17px;font:600 1.42rem/1.3 'Lora',serif;letter-spacing:-.04em}
+.v131-metric small{font-size:.57rem;color:#8e9186;display:block;margin-top:2px}
+.v131-metric>.v131-meter{display:block;width:100%;margin-top:auto;transform:translateY(3px)}
+.v131-steps-meter i{background:#879f8d}
+.v131-water-meter i{background:#99abc8}
+.v131-meals-title{margin:0 0 12px}
+.v131-meals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.v131-meal{display:flex;min-height:137px;flex-direction:column;gap:10px;text-align:left;padding:13px 13px 11px;border:1px solid #e9e7e0;border-radius:19px;background:#fffdfa;color:#354238;box-shadow:none;min-width:0}
+.v131-meal-head{display:flex;align-items:center;gap:9px;min-width:0}
+.v131-meal-icon{display:grid;place-items:center;width:35px;height:35px;border-radius:12px;flex-shrink:0;background:#f4eee9;color:#b68f7e}
+.v131-meal-icon-1{background:#e9efe7;color:#708c77}
+.v131-meal-icon-2{background:#f0edf4;color:#8f86a7}
+.v131-meal-icon-3{background:#f8ede9;color:#c18f87}
+.v131-meal-name{font:600 .83rem/1.23 'Lora',serif;letter-spacing:-.02em;min-width:0}
+.v131-meal-description{font-size:.64rem;line-height:1.5;color:#848880;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:28px}
+.v131-meal-footer{display:flex;align-items:center;justify-content:space-between;gap:5px;margin-top:auto;color:#607f68;font-size:.69rem;font-weight:600}
+.v131-meal-footer svg{color:#a1aaa0}
+.v131-bottom-note{display:flex;align-items:center;justify-content:center;gap:7px;margin:25px 0 18px;font:.66rem/1.4 'Poppins',sans-serif;color:#9b9e92}
+.v131-footer-leaf{display:grid;place-items:center;color:#839c87}
+.v131-home button:focus-visible{outline:2px solid #869f8b;outline-offset:2px}
+.v131-home button:active{transform:scale(.994)}
+@media(max-width:365px){
+ .page.with-tabs{padding-inline:15px}
+ .v131-intro{height:183px}
+ .v131-logo{font-size:2.3rem}
+ .v131-greeting{max-width:67%;margin-top:27px}
+ .v131-greeting h1{font-size:1.59rem}
+ .v131-bloomie{height:145px;right:-10px}
+ .v131-energy{padding:15px 12px 19px}
+ .v131-energy-grid{grid-template-columns:40% minmax(0,60%)}
+ .v131-energy-right{padding-left:9px}
+ .v131-remaining{font-size:.75rem}
+ .v131-macro-line span{font-size:.59rem}
+ .v131-macro-line strong{font-size:.6rem}
+ .v131-meal{padding:11px 9px}
+ .v131-meal-head{gap:6px}
+ .v131-meal-name{font-size:.77rem}
+ .v131-meal-icon{width:31px;height:31px}
+ .v131-metric{padding:11px 10px}
+}
